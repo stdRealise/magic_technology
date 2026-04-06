@@ -1,12 +1,13 @@
 [gd_scene format=3 uid="uid://7jr56a1f1s5s"]
 
-[ext_resource type="Script" uid="uid://cm0tp6c207cqy" path="res://CharacterBody3d.cs" id="1_iwpo4"]
+[ext_resource type="Script" uid="uid://cm0tp6c207cqy" path="res://scripts/Player.cs" id="1_iwpo4"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_fb3t6"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_iwpo4"]
 
-[node name="CharacterBody3D" type="CharacterBody3D" unique_id=655783803]
+[node name="Player" type="CharacterBody3D" unique_id=655783803]
+collision_layer = 3
 script = ExtResource("1_iwpo4")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=733193558]

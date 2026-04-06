@@ -1,0 +1,96 @@
+[gd_scene format=3 uid="uid://b0dmfumxb30tr"]
+
+[ext_resource type="Script" uid="uid://xlsw3wyvwl8b" path="res://scripts/Ladder.cs" id="1_wb5wo"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ukdhf"]
+size = Vector3(0.3, 4, 1.4)
+
+[sub_resource type="BoxMesh" id="BoxMesh_vott6"]
+size = Vector3(0.2, 4, 0.3)
+
+[sub_resource type="BoxMesh" id="BoxMesh_wb5wo"]
+size = Vector3(0.1, 0.1, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_mkxdc"]
+size = Vector3(0.1, 0.1, 0.1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_c8mxu"]
+size = Vector3(1.1, 4, 1.7)
+
+[node name="StaticBody3D" type="StaticBody3D" unique_id=828304919]
+collision_layer = 5
+script = ExtResource("1_wb5wo")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=841582039]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+shape = SubResource("BoxShape3D_ukdhf")
+
+[node name="Meshs" type="Node3D" parent="." unique_id=492087681]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Meshs" unique_id=236685001]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0.5)
+mesh = SubResource("BoxMesh_vott6")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="Meshs" unique_id=168402111]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, -0.5)
+mesh = SubResource("BoxMesh_vott6")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="Meshs" unique_id=1416152892]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+mesh = SubResource("BoxMesh_wb5wo")
+
+[node name="MeshInstance3D4" type="MeshInstance3D" parent="Meshs" unique_id=1045369764]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+mesh = SubResource("BoxMesh_wb5wo")
+
+[node name="MeshInstance3D5" type="MeshInstance3D" parent="Meshs" unique_id=331694269]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
+mesh = SubResource("BoxMesh_wb5wo")
+
+[node name="MeshInstance3D6" type="MeshInstance3D" parent="Meshs" unique_id=824326188]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+mesh = SubResource("BoxMesh_wb5wo")
+
+[node name="MeshInstance3D7" type="MeshInstance3D" parent="Meshs" unique_id=1643927745]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, 0)
+mesh = SubResource("BoxMesh_wb5wo")
+
+[node name="MeshInstance3D8" type="MeshInstance3D" parent="Meshs" unique_id=1223388783]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 0)
+mesh = SubResource("BoxMesh_wb5wo")
+
+[node name="MeshInstance3D9" type="MeshInstance3D" parent="Meshs" unique_id=1285613319]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.5, 0)
+mesh = SubResource("BoxMesh_wb5wo")
+
+[node name="MeshInstance3D10" type="MeshInstance3D" parent="Meshs" unique_id=1527950881]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.15650535, 0, 0.6531422)
+mesh = SubResource("BoxMesh_mkxdc")
+
+[node name="MeshInstance3D11" type="MeshInstance3D" parent="Meshs" unique_id=1323351805]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.6047077, 0, 0.49026096)
+mesh = SubResource("BoxMesh_mkxdc")
+
+[node name="MeshInstance3D12" type="MeshInstance3D" parent="Meshs" unique_id=412190221]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.8053155, 0, 0.62688005)
+mesh = SubResource("BoxMesh_mkxdc")
+
+[node name="MeshInstance3D13" type="MeshInstance3D" parent="Meshs" unique_id=1639265093]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.8053155, 0, -0.6985254)
+mesh = SubResource("BoxMesh_mkxdc")
+
+[node name="InteractArea" type="Area3D" parent="." unique_id=1120925837]
+collision_layer = 5
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="InteractArea" unique_id=52287581]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.4, 2, 0)
+shape = SubResource("BoxShape3D_c8mxu")
+
+[node name="StartPoint" type="Marker3D" parent="." unique_id=1814514991]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 1, 0)
+
+[node name="EndPoint" type="Marker3D" parent="." unique_id=1872059006]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 5, 0)
+
+[connection signal="body_entered" from="InteractArea" to="." method="OnInteractAreaBodyEntered"]
+[connection signal="body_exited" from="InteractArea" to="." method="OnInteractAreaBodyExiting"]
