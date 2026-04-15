@@ -8,13 +8,7 @@ public partial class Player : CharacterBody3D
 	public const float JumpVelocity = 4.5f;
 	public const float MouseSensitivity = 0.002f; 
 	
-	private bool _isOnLadder = false;
-	private Ladder _currentLadder;
-	
-	[Export]
-	private float _climbSpeed = 3.0f;
-	[Export]
-	private float _pushForce = 2.0f;
+	public bool isOnLadder = false;
 	
 	private Node3D _head;
 	private Camera3D _camera;
@@ -36,44 +30,6 @@ public partial class Player : CharacterBody3D
 				GD.PrintErr("Объект под лучом не поддерживает взаимодействие (не реализует IInteractable)");
 			}
 		}
-	}
-	
-	public void EnterLadderMode(Ladder ladder)
-	{
-		_currentLadder = ladder;
-		_isOnLadder = true;
-		Velocity = Vector3.Zero;
-		GlobalPosition = _currentLadder.startPosition;
-		
-		GD.Print("Let's climb!");
-	}
-	
-	private void HandleLadderMovement(float delta)
-	{
-		float verticalInput = Input.GetAxis("ActMoveBackward", "ActMoveForward");
-		Vector3 newPosition = GlobalPosition;
-		newPosition.Y += verticalInput * _climbSpeed * delta;
-		float minY = _currentLadder.startPosition.Y;
-		float maxY = _currentLadder.endPosition.Y;
-		newPosition.Y = Mathf.Clamp(newPosition.Y, minY, maxY);
-		GlobalPosition = newPosition;
-		if (Mathf.Abs(newPosition.Y - maxY) < 0.1f)
-		{
-			ExitLadderMode();
-		}
-	}
-	
-	private void ExitLadderMode()
-	{
-		Vector3 ladderEndPosition = _currentLadder.endPosition;
-		Vector3 ladderStartPosition = _currentLadder.startPosition;
-		_isOnLadder = false;
-		_currentLadder = null;
-		Vector3 directionToEnd = (ladderEndPosition - ladderStartPosition).Normalized();
-		Vector3 horizontalDirection = new Vector3(directionToEnd.X, 0, directionToEnd.Z).Normalized();
-		Velocity = horizontalDirection * _pushForce;
-		
-		GD.Print("Climb ended");
 	}
 	
 	public override void _Ready() 
@@ -100,10 +56,6 @@ public partial class Player : CharacterBody3D
 			GD.Print("Check interact");
 			CheckForInteract();
 		}
-		else if (_isOnLadder && @event.IsActionPressed("ActJump"))
-		{
-			ExitLadderMode();
-		}
 		
 		if (Input.MouseMode == Input.MouseModeEnum.Captured
 			&& @event is InputEventMouseMotion eventMouseMotion)
@@ -122,26 +74,35 @@ public partial class Player : CharacterBody3D
 	
 	public override void _PhysicsProcess(double delta)
 	{
-		if (_isOnLadder)
-		{
-			HandleLadderMovement((float)delta);
-			return; 
-		}
-		
 		Vector3 velocity = Velocity;
-
-		// Add the gravity.
-		if (!IsOnFloor())
+		if (isOnLadder) 
 		{
-			velocity += GetGravity() * (float)delta;
+			if (Input.IsActionPressed("ActJump")) 
+			{
+				velocity.Y = Speed;
+			}
+			else if (Input.IsActionPressed("ActCrouch") && !IsOnFloor())
+			{
+				velocity.Y = -Speed;
+			}
+			else 
+			{
+				velocity.Y = 0;
+			}
 		}
-
-		// Handle Jump.
-		if (Input.IsActionPressed("ActJump") && IsOnFloor())
+		else 
 		{
-			velocity.Y = JumpVelocity;
+			// Add the gravity.
+			if (!IsOnFloor())
+			{
+				velocity += GetGravity() * (float)delta;
+			}
+			// Handle Jump.
+			if (Input.IsActionPressed("ActJump") && IsOnFloor())
+			{
+				velocity.Y = JumpVelocity;
+			}
 		}
-
 		// Get the input direction and handle the movement/deceleration.
 		// As good practice, you should replace UI actions with custom gameplay actions.
 		Vector2 inputDir = Input.GetVector("ActMoveLeft", "ActMoveRight", "ActMoveForward", "ActMoveBackward");

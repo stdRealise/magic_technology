@@ -18,7 +18,7 @@ size = Vector3(0.1, 0.1, 0.1)
 size = Vector3(1.1, 4, 1.7)
 
 [node name="StaticBody3D" type="StaticBody3D" unique_id=828304919]
-collision_layer = 5
+collision_layer = 9
 script = ExtResource("1_wb5wo")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=841582039]
@@ -80,17 +80,11 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.8053155, 0, -0.6985254)
 mesh = SubResource("BoxMesh_mkxdc")
 
 [node name="InteractArea" type="Area3D" parent="." unique_id=1120925837]
-collision_layer = 5
+collision_layer = 9
 
 [node name="CollisionShape3D2" type="CollisionShape3D" parent="InteractArea" unique_id=52287581]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.4, 2, 0)
 shape = SubResource("BoxShape3D_c8mxu")
-
-[node name="StartPoint" type="Marker3D" parent="." unique_id=1814514991]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 1, 0)
-
-[node name="EndPoint" type="Marker3D" parent="." unique_id=1872059006]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 5, 0)
 
 [connection signal="body_entered" from="InteractArea" to="." method="OnInteractAreaBodyEntered"]
 [connection signal="body_exited" from="InteractArea" to="." method="OnInteractAreaBodyExiting"]

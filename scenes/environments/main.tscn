@@ -5,10 +5,10 @@
 [ext_resource type="PackedScene" uid="uid://b0dmfumxb30tr" path="res://scenes/environments/Ladder.tscn" id="3_x0ak5"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_h2yge"]
-size = Vector3(60, 2, 60)
+size = Vector3(200, 2, 200)
 
 [sub_resource type="BoxMesh" id="BoxMesh_1bvp3"]
-size = Vector3(60, 2, 60)
+size = Vector3(200, 2, 200)
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_lquwl"]
 top_radius = 1.0
@@ -29,6 +29,12 @@ height = 3.0
 height = 6.0
 radius = 1.0
 
+[sub_resource type="BoxMesh" id="BoxMesh_x0ak5"]
+size = Vector3(0.2, 0.2, 0.2)
+
+[sub_resource type="BoxMesh" id="BoxMesh_pd4cj"]
+size = Vector3(0.2, 0.2, 0.2)
+
 [sub_resource type="BoxShape3D" id="BoxShape3D_1bvp3"]
 size = Vector3(1000, 1, 1000)
 
@@ -41,6 +47,16 @@ size = Vector3(7, 4, 12)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_pd4cj"]
 size = Vector3(7, 4, 12)
+
+[sub_resource type="PrismMesh" id="PrismMesh_x0ak5"]
+left_to_right = 0.0
+size = Vector3(6, 4, 6)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_sbxtq"]
+size = Vector3(0.1, 7.5, 6)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_bc361"]
+size = Vector3(2, 2, 6)
 
 [node name="Main" type="Node" unique_id=671836507]
 
@@ -87,6 +103,14 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.1, 0)
 target_position = Vector3(0, 0, -2.5)
 collision_mask = 5
 
+[node name="LeftHand" type="MeshInstance3D" parent="CharacterBody3D/Head/Camera3D" unique_id=2120810429]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, -0.4, -0.7)
+mesh = SubResource("BoxMesh_x0ak5")
+
+[node name="RightHand" type="MeshInstance3D" parent="CharacterBody3D/Head/Camera3D" unique_id=552335944]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, -0.4, -0.7)
+mesh = SubResource("BoxMesh_pd4cj")
+
 [node name="KillBox" type="Area3D" parent="." unique_id=1670787571]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -5, 0)
 script = ExtResource("2_x0ak5")
@@ -114,5 +138,19 @@ shape = SubResource("BoxShape3D_pd4cj")
 
 [node name="Ladder" parent="." unique_id=1248487923 instance=ExtResource("3_x0ak5")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.282119, 0, 3.5644593)
+
+[node name="Stairs" type="StaticBody3D" parent="." unique_id=1759824214]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.5, 2, 10)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Stairs" unique_id=110130387]
+mesh = SubResource("PrismMesh_x0ak5")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Stairs" unique_id=571122279]
+transform = Transform3D(0.5591929, -0.82903755, 0, 0.82903755, 0.5591929, 0, 0, 0, 1, 0, -0.05, 0)
+shape = SubResource("BoxShape3D_sbxtq")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="Stairs" unique_id=1295145655]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, -1, 0)
+shape = SubResource("BoxShape3D_bc361")
 
 [connection signal="body_entered" from="KillBox" to="KillBox" method="OnBodyEntered"]
