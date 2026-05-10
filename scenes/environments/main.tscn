@@ -3,6 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://7jr56a1f1s5s" path="res://scenes/characters/character_body_3d.tscn" id="1_gpfi5"]
 [ext_resource type="Script" uid="uid://bsqipqscpllr0" path="res://scripts/Area3d.cs" id="2_x0ak5"]
 [ext_resource type="PackedScene" uid="uid://b0dmfumxb30tr" path="res://scenes/environments/Ladder.tscn" id="3_x0ak5"]
+[ext_resource type="PackedScene" uid="uid://veh2thbixhkj" path="res://scenes/characters/enemy.tscn" id="4_sbxtq"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_h2yge"]
 size = Vector3(200, 2, 200)
@@ -128,5 +129,8 @@ shape = SubResource("BoxShape3D_sbxtq")
 [node name="CollisionShape3D2" type="CollisionShape3D" parent="Stairs" unique_id=1295145655]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, -1, 0)
 shape = SubResource("BoxShape3D_bc361")
+
+[node name="Enemy" parent="." unique_id=940645737 instance=ExtResource("4_sbxtq")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 1, 0)
 
 [connection signal="body_entered" from="KillBox" to="KillBox" method="OnBodyEntered"]

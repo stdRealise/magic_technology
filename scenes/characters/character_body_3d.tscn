@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://7jr56a1f1s5s"]
 
 [ext_resource type="Script" uid="uid://cm0tp6c207cqy" path="res://scripts/Player.cs" id="1_iwpo4"]
+[ext_resource type="Script" uid="uid://dre7uo1ixkk5y" path="res://scripts/RightHand.cs" id="2_tl2u2"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_fb3t6"]
 
@@ -32,8 +33,10 @@ target_position = Vector3(0, 0, -2.5)
 
 [node name="LeftHand" type="MeshInstance3D" parent="Head/Camera3D" unique_id=1192047003]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, -0.4, -0.7)
+visible = false
 mesh = SubResource("BoxMesh_w8t7y")
 
 [node name="RightHand" type="MeshInstance3D" parent="Head/Camera3D" unique_id=2041114880]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, -0.4, -0.7)
 mesh = SubResource("BoxMesh_tl2u2")
+script = ExtResource("2_tl2u2")
