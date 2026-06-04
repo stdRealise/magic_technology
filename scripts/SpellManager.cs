@@ -101,7 +101,7 @@ namespace MagicTechology
 
         private void RegisterSpells()
         {
-            _spells.Add("TestSpell", new Spell("Test", 1, 0, SpellCategory.Test));
+            _spells.Add("TestSpell", new Spell("TestSpell", 1, 0, SpellCategory.Test));
         }
 
         public void CastSpell(Player player, string name)
