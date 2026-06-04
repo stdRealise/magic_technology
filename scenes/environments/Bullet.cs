@@ -12,9 +12,6 @@ public partial class Bullet : Node3D
 	{
 		Direction = Direction.Normalized();
 		timeBeforeDie = 360;
-		GD.Print("Bullet is ready");
-		GD.Print("Bullet direction: ", Direction);
-		GD.Print("Bullet position: ", Position);
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.

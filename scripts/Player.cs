@@ -1,6 +1,8 @@
 using Godot;
 using System;
+using MagicTechnology;
 using MagicTechnology.Interfaces;
+using MagicTechology;
 
 public partial class Player : CharacterBody3D
 {
@@ -58,16 +60,20 @@ public partial class Player : CharacterBody3D
 		}
 		else if (@event.IsActionPressed("ActShoot"))
 		{
-				//test
-				var bulletScene = GD.Load<PackedScene>("res://scenes/environments/Bullet.tscn");
-				var b = bulletScene.Instantiate<Bullet>();
-				
-				b.Speed = 10f;
-				Camera3D camera = GetNode<Camera3D>("Head/Camera3D");
-				b.Direction = -camera.GlobalTransform.Basis.Z;
-				b.Position = Position;
-				GetTree().CurrentScene.AddChild(b);
-				//end test
+#if false
+			//test
+			var bulletScene = GD.Load<PackedScene>("res://scenes/environments/Bullet.tscn");
+			var b = bulletScene.Instantiate<Bullet>();
+			
+			b.Speed = 10f;
+			Camera3D camera = GetNode<Camera3D>("Head/Camera3D");
+			b.Direction = -camera.GlobalTransform.Basis.Z;
+			b.Position = Position;
+			GetTree().CurrentScene.AddChild(b);
+			//end test
+#endif
+			SpellManager.GetInstance().CastSpell(this, "TestSpell");
+
 		}
 		
 		if (Input.MouseMode == Input.MouseModeEnum.Captured
