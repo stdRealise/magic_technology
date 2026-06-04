@@ -56,6 +56,19 @@ public partial class Player : CharacterBody3D
 			GD.Print("Check interact");
 			CheckForInteract();
 		}
+		else if (@event.IsActionPressed("ActShoot"))
+		{
+				//test
+				var bulletScene = GD.Load<PackedScene>("res://scenes/environments/Bullet.tscn");
+				var b = bulletScene.Instantiate<Bullet>();
+				
+				b.Speed = 10f;
+				Camera3D camera = GetNode<Camera3D>("Head/Camera3D");
+				b.Direction = -camera.GlobalTransform.Basis.Z;
+				b.Position = Position;
+				GetTree().CurrentScene.AddChild(b);
+				//end test
+		}
 		
 		if (Input.MouseMode == Input.MouseModeEnum.Captured
 			&& @event is InputEventMouseMotion eventMouseMotion)

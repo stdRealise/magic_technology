@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://dkb32g7v151yh"]
+
+[ext_resource type="Script" uid="uid://crlpcxscqdhsy" path="res://scenes/environments/Bullet.cs" id="1_hccqk"]
+
+[node name="Bullet" type="Node3D" unique_id=1387895280]
+script = ExtResource("1_hccqk")
+
+[node name="CSGSphere3D" type="CSGSphere3D" parent="." unique_id=49314588]
+radius = 1.413
