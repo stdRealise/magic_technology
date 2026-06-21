@@ -49,7 +49,7 @@ public partial class Player : CharacterBody3D
 		{
 			Input.MouseMode = Input.MouseModeEnum.Captured;
 		}
-		else if (@event.IsActionPressed("ActMenuCancel")) 
+		if (@event.IsActionPressed("ActMenuCancel")) 
 		{
 			Input.MouseMode = Input.MouseModeEnum.Visible;
 		}

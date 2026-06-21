@@ -133,4 +133,13 @@ shape = SubResource("BoxShape3D_bc361")
 [node name="Enemy" parent="." unique_id=940645737 instance=ExtResource("4_sbxtq")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 1, 0)
 
+[node name="Enemy2" parent="." unique_id=1922699225 instance=ExtResource("4_sbxtq")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 1, 2.6900516)
+
+[node name="Enemy3" parent="." unique_id=1306039989 instance=ExtResource("4_sbxtq")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 1, -4.4419456)
+
+[node name="Enemy4" parent="." unique_id=516040402 instance=ExtResource("4_sbxtq")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 1, 4.6738553)
+
 [connection signal="body_entered" from="KillBox" to="KillBox" method="OnBodyEntered"]
