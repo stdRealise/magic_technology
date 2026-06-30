@@ -1,0 +1,29 @@
+[gd_scene format=3 uid="uid://bachkmfo0bfct"]
+
+[ext_resource type="PackedScene" uid="uid://gg374qn5rk6y" path="res://assets/Barrel/Destroy_barrel (24).blend" id="3_0mhv5"]
+
+[sub_resource type="CSharpScript" id="CSharpScript_gxamr"]
+script/source = "using Godot;
+using System;
+
+public partial class Fragments : Node3D
+{
+	private double _lifeTime = 10;
+	public override void _Ready()
+	{
+	}
+
+	public override void _PhysicsProcess(double delta)
+	{
+		_lifeTime -= delta;
+		if (_lifeTime < 0)
+			QueueFree();
+	}
+}
+"
+
+[node name="Fragments" type="Node3D" unique_id=607949593]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.7822404, -0.21076137, 0.3453133)
+script = SubResource("CSharpScript_gxamr")
+
+[node name="Destroy_barrel (24)" parent="." unique_id=1794344735 instance=ExtResource("3_0mhv5")]

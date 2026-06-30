@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://se2gc3pb7is4"]
+
+[ext_resource type="PackedScene" uid="uid://daq2m77vylo0o" path="res://assets/BinbunVFX_Vol2/ElementalMagicFX/effects/cast/vfx_fire_cast_01.tscn" id="1_8k564"]
+[ext_resource type="Script" uid="uid://cu20na4c8pdpd" path="res://scripts/FireImpact.cs" id="1_g5g75"]
+
+[node name="FireImpact" type="Node3D" unique_id=997638629]
+script = ExtResource("1_g5g75")
+
+[node name="VFXFireCast" parent="." unique_id=1791869936 instance=ExtResource("1_8k564")]
+one_shot = true

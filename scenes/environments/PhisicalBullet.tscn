@@ -1,19 +1,18 @@
 [gd_scene format=3 uid="uid://eddsb1vyvdp0"]
 
-[ext_resource type="Script" uid="uid://3ynso8cqyyh4" path="res://scripts/PhisicalBullet.cs" id="1_ors0r"]
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ors0r"]
-albedo_color = Color(1, 0, 0, 1)
+[ext_resource type="Script" uid="uid://1m8ajjqqsycj" path="res://scripts/PhisicalBullet.cs" id="1_ors0r"]
+[ext_resource type="PackedScene" uid="uid://c4jq7s82wru52" path="res://assets/BinbunVFX_Vol2/ElementalMagicFX/effects/projectile/vfx_fire_projectile_01.tscn" id="2_rww27"]
+[ext_resource type="PackedScene" uid="uid://se2gc3pb7is4" path="res://scenes/environments/FireImpact.tscn" id="2_rxy46"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_ors0r"]
 radius = 0.1
 
 [node name="CharacterBody3D" type="CharacterBody3D" unique_id=1489867691]
 script = ExtResource("1_ors0r")
-
-[node name="CSGSphere3D" type="CSGSphere3D" parent="." unique_id=1768041920]
-radius = 0.1
-material = SubResource("StandardMaterial3D_ors0r")
+ExplosionScene = ExtResource("2_rxy46")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1926365385]
 shape = SubResource("SphereShape3D_ors0r")
+
+[node name="VFXFireProjectile_01" parent="." unique_id=1245201508 instance=ExtResource("2_rww27")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, 0, 0)

@@ -1,37 +1,12 @@
 [gd_scene format=3 uid="uid://dkb32g7v151yh"]
 
-[sub_resource type="CSharpScript" id="CSharpScript_g4gd4"]
-script/source = "using Godot;
-using System;
+[ext_resource type="Script" uid="uid://b1854vyx3gj4u" path="res://scripts/Bullet.cs" id="1_hccqk"]
 
-public partial class Bullet : Node3D
-{
-	public float Speed;
-	public Vector3 Direction;
-	private int timeBeforeDie;
-	
-	// Called when the node enters the scene tree for the first time.
-	public override void _Ready()
-	{
-		Direction = Direction.Normalized();
-		timeBeforeDie = 360;
-	}
-
-	// Called every frame. 'delta' is the elapsed time since the previous frame.
-	public override void _Process(double delta)
-	{
-		Position += Direction * Speed * (float)delta;
-		--timeBeforeDie;
-		if (timeBeforeDie == 0) {
-			QueueFree();
-		}
-		//GD.Print(\"Now Bullet pos: \", newPosition);
-	}
-}
-"
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hccqk"]
 
 [node name="Bullet" type="Node3D" unique_id=1387895280]
-script = SubResource("CSharpScript_g4gd4")
+script = ExtResource("1_hccqk")
 
 [node name="CSGSphere3D" type="CSGSphere3D" parent="." unique_id=49314588]
-radius = 1.413
+radius = 0.3
+material = SubResource("StandardMaterial3D_hccqk")

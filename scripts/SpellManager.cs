@@ -48,6 +48,7 @@ namespace MagicTechology
 			info.player.GetTree().CurrentScene.AddChild(b);
 			b.AddCollisionExceptionWith(info.player);
 			b.GlobalPosition = rightHand.GlobalPosition;
+			b.LookAt(b.GlobalPosition + b.Direction, Vector3.Up);
 			//end test
 		}
 	}
