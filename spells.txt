@@ -1,0 +1,3 @@
+# Type Name Cost ManaCost Category
+
+Spell TestSpell 1 0 Test
