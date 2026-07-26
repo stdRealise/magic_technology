@@ -1,10 +1,13 @@
 [gd_scene format=3 uid="uid://bu2oiufhnrpr7"]
 
+[ext_resource type="PackedScene" uid="uid://df1x8kcikpaoy" path="res://scenes/enemies/zombie.tscn" id="1_bc361"]
 [ext_resource type="PackedScene" uid="uid://7jr56a1f1s5s" path="res://scenes/characters/character_body_3d.tscn" id="1_gpfi5"]
 [ext_resource type="Script" uid="uid://bsqipqscpllr0" path="res://scripts/Area3d.cs" id="2_x0ak5"]
 [ext_resource type="PackedScene" uid="uid://b0dmfumxb30tr" path="res://scenes/environments/Ladder.tscn" id="3_x0ak5"]
-[ext_resource type="PackedScene" uid="uid://veh2thbixhkj" path="res://scenes/characters/enemy.tscn" id="4_sbxtq"]
 [ext_resource type="PackedScene" uid="uid://v5bvjwx3jdtc" path="res://scenes/environments/Barrel.tscn" id="5_pd4cj"]
+[ext_resource type="PackedScene" uid="uid://ddvy0o8jn806u" path="res://scenes/enemies/skeleton.tscn" id="6_bc361"]
+[ext_resource type="Script" uid="uid://bp0w8pextk4kc" path="res://scripts/EnemiesGroup.cs" id="6_lajpe"]
+[ext_resource type="Script" uid="uid://d1ngaffieipcu" path="res://scripts/TriggerArea.cs" id="8_0djxi"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_h2yge"]
 size = Vector3(200, 2, 200)
@@ -53,6 +56,13 @@ size = Vector3(0.1, 7.5, 6)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_bc361"]
 size = Vector3(2, 2, 6)
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_0djxi"]
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_0djxi"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_i4m83"]
+albedo_color = Color(1, 0, 0, 1)
 
 [node name="Main" type="Node" unique_id=671836507]
 
@@ -131,18 +141,6 @@ shape = SubResource("BoxShape3D_sbxtq")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, -1, 0)
 shape = SubResource("BoxShape3D_bc361")
 
-[node name="Enemy" parent="." unique_id=940645737 instance=ExtResource("4_sbxtq")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 1, 0)
-
-[node name="Enemy2" parent="." unique_id=1922699225 instance=ExtResource("4_sbxtq")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 1, 2.6900516)
-
-[node name="Enemy3" parent="." unique_id=1306039989 instance=ExtResource("4_sbxtq")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 1, -4.4419456)
-
-[node name="Enemy4" parent="." unique_id=516040402 instance=ExtResource("4_sbxtq")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 1, 4.6738553)
-
 [node name="Barrel" parent="." unique_id=1738658244 instance=ExtResource("5_pd4cj")]
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 3.0591507, 0.91313505, 9.517976)
 
@@ -151,5 +149,38 @@ transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 4.5835276, 0.9131355, 8
 
 [node name="Barrel3" parent="." unique_id=315661239 instance=ExtResource("5_pd4cj")]
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 1.592473, 0.91313505, 10.919439)
+
+[node name="Enemy" parent="." unique_id=940645737 instance=ExtResource("1_bc361")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.9574912, 1.1796179, -7.747242)
+
+[node name="EnemiesGroup" type="Node3D" parent="." unique_id=1950930794]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 0, 3)
+script = ExtResource("6_lajpe")
+
+[node name="Enemies" type="Node3D" parent="EnemiesGroup" unique_id=2023245843]
+
+[node name="Enemy2" parent="EnemiesGroup/Enemies" unique_id=356263923 instance=ExtResource("6_bc361")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, 2)
+
+[node name="Enemy3" parent="EnemiesGroup/Enemies" unique_id=1932085571 instance=ExtResource("6_bc361")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 2)
+
+[node name="Enemy4" parent="EnemiesGroup/Enemies" unique_id=309364078 instance=ExtResource("6_bc361")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, -2)
+
+[node name="Enemy5" parent="EnemiesGroup/Enemies" unique_id=1626551197 instance=ExtResource("6_bc361")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, -2)
+
+[node name="TriggerArea" type="Area3D" parent="EnemiesGroup" unique_id=1064466006]
+script = ExtResource("8_0djxi")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="EnemiesGroup/TriggerArea" unique_id=2050716731]
+transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 0, 0, 0)
+shape = SubResource("SphereShape3D_0djxi")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="EnemiesGroup/TriggerArea" unique_id=989002349]
+transform = Transform3D(10, 0, 0, 0, 0.001, 0, 0, 0, 10, 0, 0, 0)
+mesh = SubResource("CylinderMesh_0djxi")
+surface_material_override/0 = SubResource("StandardMaterial3D_i4m83")
 
 [connection signal="body_entered" from="KillBox" to="KillBox" method="OnBodyEntered"]

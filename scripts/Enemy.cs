@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using System.Collections.Generic;
 
 public partial class Enemy : CharacterBody3D
 {
@@ -7,15 +8,36 @@ public partial class Enemy : CharacterBody3D
 	public const float Speed = 5.0f;
 	public const float JumpVelocity = 4.5f;
 
-	private MeshInstance3D _mesh;
-	private Material _originalMaterial;
+	private List<MeshInstance3D> _meshes = new();
+	private Dictionary<MeshInstance3D, Material> _originalMaterials = new();
 	private StandardMaterial3D _damageMaterial;
 
 	private float _currentHealth;
-	private bool _isDead = false;
+	protected bool _isDead = false;
 	private double _flashTimeLeft = 0.0;
 	
-	private void Die() {
+	public override void _Ready() 
+	{
+		_currentHealth = MaxHealth;
+		FindMeshes(this);
+		_damageMaterial = new StandardMaterial3D();
+		_damageMaterial.AlbedoColor = Colors.White;
+	}
+	
+	private void FindMeshes(Node node)
+	{
+		foreach (Node child in node.GetChildren())
+		{
+			if (child is MeshInstance3D mesh)
+			{
+				_meshes.Add(mesh);
+				_originalMaterials[mesh] = mesh.MaterialOverride;
+			}
+			FindMeshes(child);
+		}
+	}
+	
+	protected virtual void Die() {
 		_isDead = true;
 		GD.Print($"{Name} умер");
 		QueueFree();
@@ -30,19 +52,12 @@ public partial class Enemy : CharacterBody3D
 		}
 		_currentHealth -= damage;
 		GD.Print($"{Name} получил урон. HP: {_currentHealth}");
-		if (_mesh != null) {
-			_mesh.MaterialOverride = _damageMaterial;
-			_flashTimeLeft = 0.2;
+		foreach (MeshInstance3D mesh in _meshes) {
+			if (mesh != null) {
+				mesh.MaterialOverride = _damageMaterial;
+				_flashTimeLeft = 0.2;
+			}
 		}
-	}
-	
-	public override void _Ready() 
-	{
-		_currentHealth = MaxHealth;
-		_mesh = GetNode<MeshInstance3D>("MeshInstance3D");
-		_originalMaterial = _mesh.MaterialOverride;
-		_damageMaterial = new StandardMaterial3D();
-		_damageMaterial.AlbedoColor = Colors.White;
 	}
 	
 	public override void _PhysicsProcess(double delta)
@@ -52,17 +67,16 @@ public partial class Enemy : CharacterBody3D
 			_flashTimeLeft -= delta;
 			if (_flashTimeLeft <= 0.0)
 			{
-				_mesh.MaterialOverride = _originalMaterial;
+				foreach (MeshInstance3D mesh in _meshes) {
+					mesh.MaterialOverride = _originalMaterials[mesh];
+				}
 			}
 		}
 		Vector3 velocity = Velocity;
-		// Add the gravity.
 		if (!IsOnFloor())
 		{
 			velocity += GetGravity() * (float)delta;
 		}
-		velocity.X = 0;
-		velocity.Z = 0;
 		Velocity = velocity;
 		MoveAndSlide();
 	}

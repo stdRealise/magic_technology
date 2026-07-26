@@ -1,0 +1,28 @@
+[gd_scene format=3 uid="uid://ddvy0o8jn806u"]
+
+[ext_resource type="PackedScene" uid="uid://veh2thbixhkj" path="res://scenes/enemies/enemy.tscn" id="1_uo8vp"]
+[ext_resource type="Script" uid="uid://c7e3tll0hkp7i" path="res://scripts/Skeleton.cs" id="2_038oa"]
+[ext_resource type="Texture2D" uid="uid://du5m3vliaem36" path="res://assets/Animated-Lowpoly-Skeleton/Textures/LPolyPallete.png" id="2_esykl"]
+[ext_resource type="PackedScene" uid="uid://cdwhgtfvk71wa" path="res://assets/Animated-Lowpoly-Skeleton/skeleton.fbx" id="3_038oa"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3mw36"]
+albedo_texture = ExtResource("2_esykl")
+
+[node name="Enemy" unique_id=940645737 instance=ExtResource("1_uo8vp")]
+script = ExtResource("2_038oa")
+LoopAnimationName = "skeleton-skeleton|idle"
+DeathAnimationName = "skeleton-skeleton|spawn"
+RunAnimationName = "skeleton-skeleton|run"
+
+[node name="CollisionShape3D" parent="." index="0" unique_id=530466465]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.95364046, 0)
+
+[node name="Node3D" parent="." index="1" unique_id=1947367408]
+transform = Transform3D(1.75, 0, 0, 0, 1.75, 0, 0, 0, 1.75, 0, 0, 0)
+
+[node name="MeshInstance3D" parent="Node3D" index="0" unique_id=859241392]
+visible = false
+surface_material_override/0 = SubResource("StandardMaterial3D_3mw36")
+
+[node name="skeleton" parent="Node3D" index="1" unique_id=1373961564 instance=ExtResource("3_038oa")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0, 0)

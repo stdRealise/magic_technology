@@ -1,0 +1,23 @@
+[gd_scene format=3 uid="uid://df1x8kcikpaoy"]
+
+[ext_resource type="PackedScene" uid="uid://veh2thbixhkj" path="res://scenes/enemies/enemy.tscn" id="1_3pt6v"]
+[ext_resource type="ArrayMesh" uid="uid://d1sdy7p4xfvp7" path="res://assets/Zombie/OBJ/Zed_1.obj" id="2_rdvt3"]
+[ext_resource type="Texture2D" uid="uid://dp2y6xllcp7lc" path="res://assets/Zombie/OBJ/Zed_1.png" id="3_a0lpg"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_rdvt3"]
+radius = 0.28
+height = 2.27
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_bgxja"]
+albedo_texture = ExtResource("3_a0lpg")
+
+[node name="Enemy" unique_id=940645737 instance=ExtResource("1_3pt6v")]
+
+[node name="CollisionShape3D" parent="." index="0" unique_id=530466465]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.016331002, 0)
+shape = SubResource("CapsuleShape3D_rdvt3")
+
+[node name="MeshInstance3D" parent="Node3D" parent_id_path=PackedInt32Array(1947367408) index="0" unique_id=859241392]
+transform = Transform3D(0.35, 0, 0, 0, 0.35, 0, 0, 0, 0.35, 0, 0, 0)
+mesh = ExtResource("2_rdvt3")
+surface_material_override/0 = SubResource("StandardMaterial3D_bgxja")
