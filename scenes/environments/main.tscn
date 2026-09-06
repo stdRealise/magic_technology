@@ -2,12 +2,12 @@
 
 [ext_resource type="PackedScene" uid="uid://df1x8kcikpaoy" path="res://scenes/enemies/zombie.tscn" id="1_bc361"]
 [ext_resource type="PackedScene" uid="uid://7jr56a1f1s5s" path="res://scenes/characters/character_body_3d.tscn" id="1_gpfi5"]
-[ext_resource type="Script" uid="uid://bsqipqscpllr0" path="res://scripts/Area3d.cs" id="2_x0ak5"]
 [ext_resource type="PackedScene" uid="uid://b0dmfumxb30tr" path="res://scenes/environments/Ladder.tscn" id="3_x0ak5"]
 [ext_resource type="PackedScene" uid="uid://v5bvjwx3jdtc" path="res://scenes/environments/Barrel.tscn" id="5_pd4cj"]
 [ext_resource type="PackedScene" uid="uid://ddvy0o8jn806u" path="res://scenes/enemies/skeleton.tscn" id="6_bc361"]
 [ext_resource type="Script" uid="uid://bp0w8pextk4kc" path="res://scripts/EnemiesGroup.cs" id="6_lajpe"]
 [ext_resource type="Script" uid="uid://d1ngaffieipcu" path="res://scripts/TriggerArea.cs" id="8_0djxi"]
+[ext_resource type="PackedScene" uid="uid://di4nd1llgp47l" path="res://scenes/hud/hud.tscn" id="8_i4m83"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_h2yge"]
 size = Vector3(200, 2, 200)
@@ -101,7 +101,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 
 [node name="KillBox" type="Area3D" parent="." unique_id=1670787571]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -5, 0)
-script = ExtResource("2_x0ak5")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="KillBox" unique_id=2050674113]
 shape = SubResource("BoxShape3D_1bvp3")
@@ -183,4 +182,7 @@ transform = Transform3D(10, 0, 0, 0, 0.001, 0, 0, 0, 10, 0, 0, 0)
 mesh = SubResource("CylinderMesh_0djxi")
 surface_material_override/0 = SubResource("StandardMaterial3D_i4m83")
 
+[node name="Hud" parent="." unique_id=1579628434 instance=ExtResource("8_i4m83")]
+
+[connection signal="FlyingChanged" from="CharacterBody3D" to="Hud" method="OnFlyingChanged"]
 [connection signal="body_entered" from="KillBox" to="KillBox" method="OnBodyEntered"]

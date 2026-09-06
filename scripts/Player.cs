@@ -6,11 +6,23 @@ using MagicTechology;
 
 public partial class Player : CharacterBody3D
 {
+	[Signal]
+	public delegate void FlyingChangedEventHandler(float value);
+	
 	public const float Speed = 5.0f;
 	public const float JumpVelocity = 4.5f;
 	public const float MouseSensitivity = 0.002f; 
 	
+	public const float MaxFlyingTime = 4.0f;
+	public const float FlyingRegenerationDelay = 3.0f;
+	public const float FlyingRegenerationTime = 1.5f;
+	
 	public bool isOnLadder = false;
+	public bool isFlying = false;
+	public bool canStartFlying = false;
+	
+	private float _flyingTime = MaxFlyingTime;
+	private float _groundedTime = 0.0f;
 	
 	private Node3D _head;
 	private Camera3D _camera;
@@ -37,7 +49,6 @@ public partial class Player : CharacterBody3D
 	public override void _Ready() 
 	{
 		base._Ready();
-		
 		_head = GetNode<Node3D>("Head");
 		_camera = GetNode<Camera3D>("Head/Camera3D");
 		_rayCast = GetNode<RayCast3D>("Head/Camera3D/RayCast3D");
@@ -91,6 +102,28 @@ public partial class Player : CharacterBody3D
 		}
 	}
 	
+	private void StopFlying()
+	{
+		if (!isFlying) return;
+		isFlying = false;
+	}
+	
+	private void UpdateFlyingRegeneration(double delta)
+	{
+		if (_flyingTime >= MaxFlyingTime)
+		{
+			return;
+		}
+		_groundedTime += (float)delta;
+		if (_groundedTime < FlyingRegenerationDelay) {
+			return;
+		}
+		float regenerationSpeed = MaxFlyingTime / FlyingRegenerationTime;
+		_flyingTime += regenerationSpeed * (float)delta;
+		_flyingTime = Mathf.Min(_flyingTime, MaxFlyingTime);
+		EmitSignal(SignalName.FlyingChanged, _flyingTime / MaxFlyingTime);
+	}
+	
 	public override void _PhysicsProcess(double delta)
 	{
 		Vector3 velocity = Velocity;
@@ -111,19 +144,42 @@ public partial class Player : CharacterBody3D
 		}
 		else 
 		{
-			// Add the gravity.
-			if (!IsOnFloor())
+			if (IsOnFloor())
 			{
-				velocity += GetGravity() * (float)delta;
+				StopFlying();
+				canStartFlying = false;
+				UpdateFlyingRegeneration(delta);
+				if (Input.IsActionJustPressed("ActJump")) {
+					velocity.Y = JumpVelocity;
+					canStartFlying = true;
+				}
 			}
-			// Handle Jump.
-			if (Input.IsActionPressed("ActJump") && IsOnFloor())
-			{
-				velocity.Y = JumpVelocity;
+			else {
+				_groundedTime = 0.0f;
+				if (Input.IsActionJustPressed("ActJump") && !isFlying &&
+					_flyingTime > 0.0f && canStartFlying) {
+					isFlying = true;
+					canStartFlying = false;
+					velocity.Y = 0.0f;
+				}
+				if (isFlying)
+				{
+					velocity.Y = 0.0f;
+					_flyingTime -= (float)delta;
+					if (_flyingTime <= 0.0f)
+					{
+						_flyingTime = 0.0f;
+						StopFlying();
+					}
+					EmitSignal(SignalName.FlyingChanged, _flyingTime / MaxFlyingTime);
+				}
+				else
+				{
+					velocity += GetGravity() * (float)delta;
+				}
 			}
 		}
-		// Get the input direction and handle the movement/deceleration.
-		// As good practice, you should replace UI actions with custom gameplay actions.
+		
 		Vector2 inputDir = Input.GetVector("ActMoveLeft", "ActMoveRight", "ActMoveForward", "ActMoveBackward");
 		Vector3 direction = (_head.Transform.Basis * new Vector3(inputDir.X, 0, inputDir.Y)).Normalized();
 		if (direction != Vector3.Zero)
