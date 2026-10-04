@@ -1,0 +1,25 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://5fm1xl4n51oy"
+path="res://.godot/imported/Hilly_Prop_Stepping_Stones_6.obj-e825a4a9e5f7b0b92a14f63b750eee1d.mesh"
+
+[deps]
+
+files=["res://.godot/imported/Hilly_Prop_Stepping_Stones_6.obj-e825a4a9e5f7b0b92a14f63b750eee1d.mesh"]
+
+source_file="res://assets/modular_terrain_collection/Hilly_Prop_Stepping_Stones_6.obj"
+dest_files=["res://.godot/imported/Hilly_Prop_Stepping_Stones_6.obj-e825a4a9e5f7b0b92a14f63b750eee1d.mesh", "res://.godot/imported/Hilly_Prop_Stepping_Stones_6.obj-e825a4a9e5f7b0b92a14f63b750eee1d.mesh"]
+
+[params]
+
+generate_tangents=true
+generate_lods=true
+generate_shadow_mesh=true
+generate_lightmap_uv2=false
+generate_lightmap_uv2_texel_size=0.2
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+force_disable_mesh_compression=false

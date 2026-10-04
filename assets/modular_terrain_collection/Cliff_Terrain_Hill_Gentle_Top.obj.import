@@ -1,0 +1,25 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://s4nsk1ovsd2x"
+path="res://.godot/imported/Cliff_Terrain_Hill_Gentle_Top.obj-ce340289d922b094ef225f50ee659a76.mesh"
+
+[deps]
+
+files=["res://.godot/imported/Cliff_Terrain_Hill_Gentle_Top.obj-ce340289d922b094ef225f50ee659a76.mesh"]
+
+source_file="res://assets/modular_terrain_collection/Cliff_Terrain_Hill_Gentle_Top.obj"
+dest_files=["res://.godot/imported/Cliff_Terrain_Hill_Gentle_Top.obj-ce340289d922b094ef225f50ee659a76.mesh", "res://.godot/imported/Cliff_Terrain_Hill_Gentle_Top.obj-ce340289d922b094ef225f50ee659a76.mesh"]
+
+[params]
+
+generate_tangents=true
+generate_lods=true
+generate_shadow_mesh=true
+generate_lightmap_uv2=false
+generate_lightmap_uv2_texel_size=0.2
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+force_disable_mesh_compression=false
